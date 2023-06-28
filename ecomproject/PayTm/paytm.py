@@ -8,7 +8,7 @@ def paytm_payment_process(request):
     # print(order.order_status,order.total)
     param_dict = {
 
-        'MID': 'PLtXFQ32092519130257',
+        'MID': 'Type Here Their MID ID',
         'ORDER_ID': str(order.id),
         'TXN_AMOUNT': str(order.total),
         'CUST_ID': email,
@@ -20,6 +20,6 @@ def paytm_payment_process(request):
     }
 
     from PayTm import Checksum
-    MERCHANT_KEY = 'Please Type your merchant Key'
+    MERCHANT_KEY = 'Your Merchant Key'
     param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANT_KEY)
     return render(request, 'paytm.html', {'param_dict': param_dict})
