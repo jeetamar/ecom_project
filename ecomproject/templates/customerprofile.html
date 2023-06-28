@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %} My Profile {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="col-md-3 my-5 p-5 shadow shadow-lg">
+            <img src="{{ customer.profile_img.url}}" style="border-radius:50%;" class="img-fluid rounded-circle"><hr>
+            <h3 class="text-center"style="font-family:Times New Roman">{{customer.full_name}}</h3>
+            <a class="btn btn-outline-warning" href="{% url 'ecomapp:customerlogout' %}">Logout</a>
+            <button type="button" id="info" class="btn btn-info" onclick="show_info();">Show More </button>
+        </div>
+        <div class="col-md-4 my-5  p-5 shadow shadow-lg" style="display:none;" id="user_info">
+            <h3 class="text-center">Detailed Information</h3><hr>
+            <p><span class="font-weight-bold"> Name: </span>{{customer.full_name}}</p>
+            <p><span class="font-weight-bold"> Username:</span>{{customer.user.username}}</p>
+            <p><span class="font-weight-bold"> Email:</span>{{customer.user.email}}</p>
+            <p><span class="font-weight-bold"> Address:</span>{{customer.address}}</p>
+            <p><span class="font-weight-bold"> Joined On:</span>{{customer.joined_on}}</p>
+            <button type="button" id="" class="btn btn-info" onclick="show_order();">My Order </button>
+
+        </div>
+        <div class="col-md-9 my-5  p-5 shadow shadow-lg mx-auto" id="or_info">
+            <h3 class="text-center">Previous Order</h3><hr>
+<!--            {% for order in orders %}-->
+<!--                <p>{{order.ordered_by}}</p>-->
+<!--            {% endfor %}-->
+            <table class="table" id="order">
+                <thead>
+                    <tr>
+                        <th>SN.</th>
+                        <th>Order No.</th>
+                        <th>Amount.</th>
+                        <th>Ordered On.</th>
+                        <th>Status.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{% url 'ecomapp:customerorderdetail' order.id %}"> #ORDER_{{order.id}}</a></td>
+                        <td>{{order.total}}</td>
+                        <td>{{order.created_at|timesince}} ago</td>
+                        <td>{{order.order_status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js" "></script>
+   <script type="text/javascript">
+	$(document).ready(function()
+	{         //debugger;
+	    $('#order').DataTable(
+	    {
+            "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+	        dom: 'Blfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Order',
+                    text:'Excel'
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: 'Order',
+                    text: 'CSV'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Order',
+                    className: 'btn_pdf',
+                    text: 'PDF'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                },
+	       ]
+	    });
+        $('.btn_pdf').attr("class","btn btn-success");
+
+	} );
+
+    function show_info(){
+        $("#user_info").slideDown(1000);
+        $("#or_info").hide();
+    }
+   function show_order(){
+       $("#or_info").show();
+        $("#user_info").hide();
+   }
+	</script>
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+</div>
+
+
+{% endblock %}

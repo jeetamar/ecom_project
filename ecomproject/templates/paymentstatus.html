@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+{% block title%} My Status{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+<!--    <h5 class="text-center"> Response is - {{response}}</h5>-->
+    <div class="col-md-6 p-5 my-5 shadow shadow-lg bg-light mx-auto">
+
+        <h5 class="text-center">Payment status regarding your order Id {{response.ORDERID}}</h5>
+        {% if response.RESPCODE == '01' %}
+        <p class="text-center">Your Payment has been Successful </p>
+        <table class="table table-bordered">
+            <h6 class="text-center"><img src="{% static 'img/paymentsuccess.gif' %}" height="200px" width="200px"></h6>
+            <tr>
+                <td>Your Order Id</td>
+                <td>{{response.ORDERID}}</td>
+            </tr>
+            <tr>
+                <td>Transaction Id</td>
+                <td>{{response.TXNID}}</td>
+            </tr>
+            <tr>
+                <td>Bank Transaction ID</td>
+                <td>{{response.BANKTXNID}}</td>
+            </tr>
+            <tr>
+                <td>Total Amount</td>
+                <td>{{response.TXNAMOUNT}}</td>
+            </tr>
+            <tr>
+                <td>Payment Date</td>
+                <td>{{response.TXNDATE}}</td>
+            </tr>
+            <tr>
+                <td>Transaction Status</td>
+                <td>Success</td>
+            </tr>
+        </table>
+
+
+
+        {% else %}
+        ORDER FAILURE
+        {% endif%}
+
+    </div>
+
+</div>
+{% endblock content %}
+{% block js %}
+<script>
+</script>
+{% endblock %}

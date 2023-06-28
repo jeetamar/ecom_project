@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Paytm Payment {% endblock title %}
+{% block content %}
+<h4 class="text-center">Redirecting you to the merchant....</h4>
+<h4 class="text-center">Please do not refresh your page....</h4>
+<form action="https://securegw-stage.paytm.in/theia/processTransaction" method="post" name="paytm">
+    {% for key, value in param_dict.items %}
+    <input type="hidden" name="{{key}}" value="{{value}}">
+    {% endfor %}
+
+</form>
+</body>
+<script>
+document.paytm.submit()
+</script>
+
+{% endblock %}

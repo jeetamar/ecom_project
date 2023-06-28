@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Change Password {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 bg-img py-5 text-center px-0">
+          <h3>Send Email Here</h3>
+      </div>
+        <div class="col-md-6 p-3 bg-light my-2 shadow shadow-lg mx-auto ">
+
+            {% if status %}
+
+                   <script>alert("{{ status }}")</script>
+
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="text" class="form-control" name="to" placeholder="TO" name="to">
+                </div>
+                 <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" class="form-control" name="sub" placeholder="Enter Subject">
+                </div>
+                 <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" cols="20" rows="3" name="msg" placeholder="Enter Message"></textarea>
+                </div>
+
+
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-outline-primary rounded-pill" value="Send Email" id="sub">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Customer Login {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 p-5 my-5 shadow shadow-lg bg-light mx-auto">
+            <h3 class="text-center">Customer Login Form </h3><hr>
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{form.as_p}}
+
+                <button type="submit" class=" mt-4 btn btn-info">Login</button>
+                {% if error %}
+                <li style="color:red;"> {{error}}</li>
+                {% endif %}
+            </form>
+            <p> Forgot Password ? <a href="{% url 'ecomapp:forgot-password' %}">Reset Now</a></p>
+            <p>Or dont have account? <a href="{% url 'ecomapp:customerregistration' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}">Create Account</a></p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
