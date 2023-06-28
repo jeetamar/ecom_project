@@ -20,6 +20,6 @@ def paytm_payment_process(request):
     }
 
     from PayTm import Checksum
-    MERCHANT_KEY = 'PLtXFQ32092519130257'
+    MERCHANT_KEY = 'Please Type your merchant Key'
     param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANT_KEY)
     return render(request, 'paytm.html', {'param_dict': param_dict})
